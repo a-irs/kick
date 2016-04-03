@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+
+[[ $UID == 0 ]] || { printf "%s\n" "run as root"; exit 1; }
+. configuration
+
+do_write /etc/X11/xorg.conf.d/20-keyboard.conf \
+'Section "InputClass"
+    Identifier "keyboard"
+    MatchIsKeyboard "yes"
+    Option "XkbLayout" "de"
+    Option "XbkVariant" "nodeadkeys"
+EndSection'
+
+do_symlink /usr/share/zoneinfo/Europe/Berlin /etc/localtime
+
+do_write /etc/locale.conf 'LANG=de_DE.UTF-8'
+do_write /etc/locale.gen \
+'de_DE.UTF-8 UTF-8
+en_IE.UTF-8 UTF-8
+en_US.UTF-8 UTF-8'
+do_exec locale-gen

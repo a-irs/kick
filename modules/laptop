@@ -23,3 +23,27 @@ case $( /usr/bin/tty ) in
 esac'
 
 do_set_option /etc/ssh/sshd_config PermitRootLogin prohibit-password ' '
+
+do_set_option_ini /etc/systemd/logind.conf Login HandlePowerKey ignore
+do_set_option_ini /etc/systemd/logind.conf Login HandleSuspendKey ignore
+do_set_option_ini /etc/systemd/logind.conf Login HandleHibernateKey ignore
+do_set_option_ini /etc/systemd/logind.conf Login HandleLidSwitch ignore
+do_set_option_ini /etc/systemd/logind.conf Login HandleLidSwitchDocked ignore
+
+do_write /etc/X11/xorg.conf.d/20-intel.conf \
+'Section "Device"
+   Identifier  "Intel Graphics"
+   Driver      "intel"
+   Option      "AccelMethod"  "uxa"
+EndSection'
+
+do_write /etc/X11/xorg.conf.d/50-synaptics.conf \
+'Section "InputClass"
+    Identifier "touchpad"
+    Driver "synaptics"
+    MatchIsTouchpad "on"
+        Option "VertScrollDelta"   "-25"
+        Option "MaxTapTime"        "0"
+        Option "VertEdgeScroll"    "1"
+        Option "HorizEdgeScroll"   "1"
+EndSection'
