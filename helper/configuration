@@ -110,7 +110,7 @@ do_set_option() {
     fi
 
     prefix_yellow "set"
-    printf "$BOLD%s%s%s$RESET → %s\n" "$key" "$delim" "$value" "$file"
+    printf "%s%s%s → %s\n" "$key" "$delim" "$value" "$file"
 
     current=$(grep -m 1 -n "$key" "$file" || true)
     if [[ -n "$current" ]]; then
@@ -123,8 +123,8 @@ do_set_option() {
 
 do_set_option_ini() {
     prefix_yellow "set"
-    printf "[%s] $BOLD%s=%s$RESET → %s\n" "$2" "$3" "$4" "$1"
-    ./crudini.py --format=sh --set "$1" "$2" "$3" "$4"
+    printf "[%s] %s=%s → %s\n" "$2" "$3" "$4" "$1"
+    ./helper/crudini.py --format=sh --set "$1" "$2" "$3" "$4"
 }
 
 do_enable_service() {

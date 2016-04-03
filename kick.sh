@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 [[ $UID == 0 ]] || { printf "%s\n" "run as root"; exit 1; }
-source configuration
+source helper/configuration
 
 printf "\n"
 for m in "$@"; do
