@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
 
-do_user alex
-do_chsh alex /bin/zsh
+do_user "$user"
+do_chsh "$user" /bin/zsh

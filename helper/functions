@@ -3,7 +3,6 @@
 set -e
 
 export LC_ALL=C
-builduser=alex
 
 COLOR_RED=$(tput setaf 1)
 COLOR_GREEN=$(tput setaf 2)
@@ -43,8 +42,12 @@ do_install_aur() {
     printf "%s" "$1"
 
     if ! pacman -Q "$1" &> /dev/null; then
+        if id -u "$user" &> /dev/null; then
+            printf "$COLOR_RED%s$RESET" "Error: user $user does not exist"
+            return
+        fi
         printf "\n"
-        sudo -u $builduser -s -- <<EOF
+        sudo -u $user -s -- <<EOF
             cd "$(mktemp -d)"
             curl "https://aur.archlinux.org/cgit/aur.git/snapshot/$1.tar.gz" | tar xz
             cd "$1"
