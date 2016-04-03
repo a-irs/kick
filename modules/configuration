@@ -76,7 +76,8 @@ do_user() {
         printf "%s $COLOR_GREY%s$COLOR_RESET\n" "$1" "(already exists)"
     else
         printf "%s\n" "$1"
-        useradd -m -G wheel alex
+        useradd -m -G wheel "$1"
+        passwd "$1"
     fi
 }
 
@@ -86,6 +87,26 @@ do_chsh() {
     if [[ $current_shell == "$2" ]]; then
         printf "%s $COLOR_GREY%s$COLOR_RESET\n" "$(basename "$2")" "(already set)"
     else
+        printf "%s\n" "$(basename "$2")"
         chsh -s "$2" "$1"
+    fi
+}
+
+# changes option '#AURSHOWDIFF=0'
+#             to 'AURSHOWDIFF=1'
+do_set_option() {
+    file=$1
+    key=$2
+    value=$3
+
+    prefix_yellow "set"
+    printf "%s=%s → %s\n" "$key" "$value" "$file"
+
+    current=$(grep -m 1 -n "$key" "$file")
+    if [[ -n "$current" ]]; then
+        current_line=$(printf "%s" "$current" | cut -d: -f 1 | sed -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//')
+        sed -i "${current_line}s|.*|${key}=${value}|" "$file"
+    else
+        printf "%s\n" "$key=$value" >> "$file"
     fi
 }
