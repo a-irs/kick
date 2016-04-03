@@ -10,19 +10,20 @@ COLOR_GREY=$(tput setaf 8)
 COLOR_YELLOW=$(tput setaf 3)
 COLOR_BLUE=$(tput setaf 4)
 COLOR_CYAN=$(tput setaf 6)
-COLOR_RESET=$(tput sgr0;tput init)
+RESET=$(tput sgr0;tput init)
+BOLD=$(tput bold)
 
 prefix_yellow() {
-    printf "$COLOR_YELLOW:: %s:$COLOR_RESET " "$@"
+    printf "$COLOR_YELLOW:: %s:$RESET " "$@"
 }
 prefix_red() {
-    printf "$COLOR_RED:: %s:$COLOR_RESET " "$@"
+    printf "$COLOR_RED:: %s:$RESET " "$@"
 }
 prefix_blue() {
-    printf "$COLOR_BLUE:: %s:$COLOR_RESET " "$@"
+    printf "$COLOR_BLUE:: %s:$RESET " "$@"
 }
 prefix_cyan() {
-    printf "$COLOR_CYAN:: %s:$COLOR_RESET " "$@"
+    printf "$COLOR_CYAN:: %s:$RESET " "$@"
 }
 
 do_install() {
@@ -32,7 +33,7 @@ do_install() {
     if ! pacman -Q "$1" &> /dev/null; then
         pacman -S --needed --noconfirm -- "$1"
     else
-        printf " $COLOR_GREY(%s)$COLOR_RESET\n" 'already installed'
+        printf " $COLOR_GREY(%s)$RESET\n" 'already installed'
     fi
 }
 
@@ -49,7 +50,7 @@ do_install_aur() {
             makepkg -sir --noconfirm --needed
 EOF
     else
-        printf " $COLOR_GREY(%s)$COLOR_RESET\n" 'already installed'
+        printf " $COLOR_GREY(%s)$RESET\n" 'already installed'
     fi
 }
 
@@ -63,9 +64,9 @@ do_write() {
 
     prefix_yellow "write"
     if [[ -e $1 ]]; then
-        printf "%s $COLOR_GREY%s$COLOR_RESET\n" "$1" "(already exists)"
+        printf "%s $COLOR_GREY%s$RESET\n" "$1" "(already exists)"
     else
-        printf "%s ← $COLOR_CYAN%s$COLOR_RESET\n" "$1" "$2"
+        printf "%s ← $COLOR_CYAN%s$RESET\n" "$1" "$2"
     fi
 
     printf "%s\n" "$2" > "$1"
@@ -74,7 +75,7 @@ do_write() {
 do_user() {
     prefix_yellow "user"
     if id -u "$1" &> /dev/null; then
-        printf "%s $COLOR_GREY%s$COLOR_RESET\n" "$1" "(already exists)"
+        printf "%s $COLOR_GREY%s$RESET\n" "$1" "(already exists)"
     else
         printf "%s\n" "$1"
         useradd -m -G wheel "$1"
@@ -86,7 +87,7 @@ do_chsh() {
     prefix_yellow "shell"
     current_shell=$(getent passwd "$1" | cut -d: -f7)
     if [[ $current_shell == "$2" ]]; then
-        printf "%s $COLOR_GREY%s$COLOR_RESET\n" "$(basename "$2")" "(already set)"
+        printf "%s $COLOR_GREY%s$RESET\n" "$(basename "$2")" "(already set)"
     else
         printf "%s\n" "$(basename "$2")"
         chsh -s "$2" "$1"
@@ -99,14 +100,16 @@ do_set_option() {
     file=$1
     key=$2
     value=$3
+    delim=$4
     if [[ -n "$value" ]]; then
-        new="$key=$value"
+        [[ -z $delim ]] && delim="="
+        new="$key$delim$value"
     else
         new=$key
     fi
 
     prefix_yellow "set"
-    printf "%s=%s → %s\n" "$key" "$value" "$file"
+    printf "$BOLD%s%s%s$RESET → %s\n" "$key" "$delim" "$value" "$file"
 
     current=$(grep -m 1 -n "$key" "$file" || true)
     if [[ -n "$current" ]]; then
@@ -119,7 +122,7 @@ do_set_option() {
 
 do_set_option_ini() {
     prefix_yellow "set"
-    printf "[%s] %s=%s → %s\n" "$2" "$3" "$4" "$1"
+    printf "[%s] $BOLD%s=%s$RESET → %s\n" "$2" "$3" "$4" "$1"
     ./crudini.py --format=sh --set "$1" "$2" "$3" "$4"
 }
 

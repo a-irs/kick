@@ -5,15 +5,19 @@
 
 do_install networkmanager
 do_install network-manager-applet
-do_write /etc/modprobe.d/wlan-led.conf 'options iwlwifi led_mode=3'
-do_write /etc/modprobe.d/i915.conf 'options i915 enable_rc6=1 enable_fbc=1 modeset=1'
 do_write /etc/NetworkManager/dnsmasq.d/cache.conf 'cache-size=1000'
 do_set_option_ini /etc/NetworkManager/NetworkManager.conf 'main' 'dns' 'dnsmasq'
 do_set_option_ini /etc/NetworkManager/NetworkManager.conf 'connection' 'ipv6.ip6-privacy' '2'
 do_enable_service NetworkManager
+
+do_write /etc/modprobe.d/wlan-led.conf 'options iwlwifi led_mode=3'
+do_write /etc/modprobe.d/i915.conf 'options i915 enable_rc6=1 enable_fbc=1 modeset=1'
+
 do_write /etc/profile.d/shell-timeout.sh \
 'TMOUT="$(( 120 ))";
 [ -z "$DISPLAY" ] && export TMOUT;
 case $( /usr/bin/tty ) in
     /dev/tty[0-9]*) export TMOUT;;
 esac'
+
+do_set_option /etc/ssh/sshd_config PermitRootLogin prohibit-password ' '
