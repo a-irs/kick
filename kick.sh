@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 
+set -e
+export LC_ALL=C
+
 [[ $UID == 0 ]] || { printf "%s\n" "run as root"; exit 1; }
 source helper/functions
 source config

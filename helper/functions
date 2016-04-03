@@ -1,9 +1,5 @@
 #!/usr/bin/env bash
 
-set -e
-
-export LC_ALL=C
-
 COLOR_RED=$(tput setaf 1)
 COLOR_GREEN=$(tput setaf 2)
 COLOR_GREY=$(tput setaf 8)
@@ -42,16 +38,16 @@ do_install_aur() {
     printf "%s" "$1"
 
     if ! pacman -Q "$1" &> /dev/null; then
-        if id -u "$user" &> /dev/null; then
-            printf "$COLOR_RED%s$RESET" "Error: user $user does not exist"
+        if ! id -u "$user" &> /dev/null; then
+            printf " $COLOR_RED%s$RESET\n" "(ERROR: user '$user' needed to make package does not exist)"
             return
         fi
         printf "\n"
-        sudo -u $user -s -- <<EOF
-            cd "$(mktemp -d)"
-            curl "https://aur.archlinux.org/cgit/aur.git/snapshot/$1.tar.gz" | tar xz
-            cd "$1"
-            makepkg -sir --noconfirm --needed
+
+        temp=$(mktemp -d)
+        chown -R "$user" "$temp"
+        sudo -u "$user" -s -- <<EOF
+            cd "$temp" && curl -s "https://aur.archlinux.org/cgit/aur.git/snapshot/$1.tar.gz" | tar xz && cd "$1" && makepkg -sir --noconfirm --needed
 EOF
     else
         printf " $COLOR_GREY(%s)$RESET\n" 'already installed'
