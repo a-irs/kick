@@ -12,4 +12,3 @@
 - hostname
 - mkinitcpio
 - grub?
-- X11
