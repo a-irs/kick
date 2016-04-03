@@ -13,6 +13,9 @@ EndSection'
 
 do_symlink /usr/share/zoneinfo/Europe/Berlin /etc/localtime
 
+do_exec timedatectl set-ntp true
+hwclock --systohc --utc
+
 do_write /etc/vconsole.conf 'KEYMAP=de-latin1-nodeadkeys'
 do_write /etc/locale.conf 'LANG=de_DE.UTF-8'
 do_write /etc/locale.gen \
@@ -20,4 +23,3 @@ do_write /etc/locale.gen \
 en_IE.UTF-8 UTF-8
 en_US.UTF-8 UTF-8'
 do_exec locale-gen
-

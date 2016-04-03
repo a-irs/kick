@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+[[ $UID == 0 ]] || { printf "%s\n" "run as root"; exit 1; }
+. configuration
+
+do_install dhcpcd
+do_enable_service dhcpcd
