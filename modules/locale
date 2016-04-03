@@ -1,8 +1,5 @@
 #!/usr/bin/env bash
 
-[[ $UID == 0 ]] || { printf "%s\n" "run as root"; exit 1; }
-. configuration
-
 do_write /etc/X11/xorg.conf.d/20-keyboard.conf \
 'Section "InputClass"
     Identifier "keyboard"

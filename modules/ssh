@@ -1,8 +1,5 @@
 #!/usr/bin/env bash
 
-[[ $UID == 0 ]] || { printf "%s\n" "run as root"; exit 1; }
-. configuration
-
 do_install openssh
 
 do_set_option /etc/ssh/sshd_config X11Forwarding yes ' '

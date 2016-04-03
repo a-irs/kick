@@ -6,6 +6,7 @@ export LC_ALL=C
 builduser=alex
 
 COLOR_RED=$(tput setaf 1)
+COLOR_GREEN=$(tput setaf 2)
 COLOR_GREY=$(tput setaf 8)
 COLOR_YELLOW=$(tput setaf 3)
 COLOR_BLUE=$(tput setaf 4)
@@ -14,16 +15,16 @@ RESET=$(tput sgr0;tput init)
 BOLD=$(tput bold)
 
 prefix_yellow() {
-    printf "$COLOR_YELLOW:: %s:$RESET " "$@"
+    printf "  $COLOR_YELLOW:: %s:$RESET " "$@"
 }
 prefix_red() {
-    printf "$COLOR_RED:: %s:$RESET " "$@"
+    printf "  $COLOR_RED:: %s:$RESET " "$@"
 }
 prefix_blue() {
-    printf "$COLOR_BLUE:: %s:$RESET " "$@"
+    printf "  $COLOR_BLUE:: %s:$RESET " "$@"
 }
 prefix_cyan() {
-    printf "$COLOR_CYAN:: %s:$RESET " "$@"
+    printf "  $COLOR_CYAN:: %s:$RESET " "$@"
 }
 
 do_install() {

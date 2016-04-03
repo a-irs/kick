@@ -1,8 +1,5 @@
 #!/usr/bin/env bash
 
-[[ $UID == 0 ]] || { printf "%s\n" "run as root"; exit 1; }
-. configuration
-
 do_write /etc/sysctl.d/disable-watchdog.conf 'kernel.nmi_watchdog = 0'
 do_write /etc/sysctl.d/ipv6-privacy.conf \
 'net.ipv6.conf.all.use_tempaddr = 2

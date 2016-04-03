@@ -2,7 +2,4 @@
 
 # TODO incomplete
 
-[[ $UID == 0 ]] || { printf "%s\n" "run as root"; exit 1; }
-. configuration
-
 do_set_option /etc/profile.d/infinality-settings.sh USE_STYLE 5

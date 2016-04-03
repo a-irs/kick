@@ -1,8 +1,5 @@
 #!/usr/bin/env bash
 
-[[ $UID == 0 ]] || { printf "%s\n" "run as root"; exit 1; }
-. configuration
-
 do_install ufw
 
 do_exec ufw --force reset
