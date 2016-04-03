@@ -1,6 +1,7 @@
 
-- partition, setup until grub + reboot
-- execute modules
+# Kick.sh
+
+These are bash scripts to get a freshly installed Arch Linux up and running.
 
 
 # TODO
