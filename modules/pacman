@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+[[ $UID == 0 ]] || { printf "%s\n" "run as root"; exit 1; }
+. configuration
+
+do_set_option /etc/makepkg.conf 'COMPRESSXZ' '(xz -T 0 -c -z -)'
+do_set_option /etc/makepkg.conf 'PKGEXT' "\'.pkg.tar\'"
+
+do_set_option /etc/pacman.conf 'Color'
+do_set_option /etc/pacman.conf 'TotalDownload'
+do_set_option /etc/pacman.conf 'VerbosePkgLists'

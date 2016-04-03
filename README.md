@@ -10,3 +10,5 @@
 - ufw
 - fstab?
 - hostname
+- mkinitcpio
+- grub?
