@@ -137,3 +137,13 @@ do_exec() {
     printf "%s\n" "$*"
     "$@" > /dev/null
 }
+
+do_symlink() {
+    prefix_yellow "symlink"
+    printf "%s → %s" "$2" "$1"
+    if [[ -e "$2" ]]; then
+        printf " $COLOR_GREY%s$RESET\n" "(already exists)"
+    else
+        ln -rs "$1" "$2"
+    fi
+}
