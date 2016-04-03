@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+[[ $UID == 0 ]] || exit 1
+
+. configuration
+
+do_install_aur_asdeps package-query
+do_install_aur        yaourt

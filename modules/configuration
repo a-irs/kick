@@ -1,0 +1,91 @@
+#!/usr/bin/env bash
+
+user=alex
+
+export LC_ALL=C
+
+COLOR_RED=$(tput setaf 1)
+COLOR_GREY=$(tput setaf 8)
+COLOR_YELLOW=$(tput setaf 3)
+COLOR_BLUE=$(tput setaf 4)
+COLOR_CYAN=$(tput setaf 6)
+COLOR_RESET=$(tput sgr0;tput init)
+
+prefix_yellow() {
+    printf "$COLOR_YELLOW:: %s:$COLOR_RESET " "$@"
+}
+
+prefix_red() {
+    printf "$COLOR_RED:: %s:$COLOR_RESET " "$@"
+}
+
+prefix_blue() {
+    printf "$COLOR_BLUE:: %s:$COLOR_RESET " "$@"
+}
+
+
+do_install() {
+    prefix_blue "install"
+    printf "%s" "$1"
+
+    if ! pacman -Q "$1" &> /dev/null; then
+        pacman -S --needed --noconfirm -- "$1"
+    else
+        printf " $COLOR_GREY(%s)$COLOR_RESET\n" 'already installed'
+    fi
+}
+
+do_install_aur() {
+    prefix_blue "install (AUR)"
+    printf "%s" "$1"
+
+    if ! pacman -Q "$1" &> /dev/null; then
+        printf "\n"
+        sudo -u $user -s -- <<EOF
+            cd "$(mktemp -d)"
+            curl "https://aur.archlinux.org/cgit/aur.git/snapshot/$1.tar.gz" | tar xz
+            cd "$1"
+            makepkg -sir --noconfirm --needed
+EOF
+    else
+        printf " $COLOR_GREY(%s)$COLOR_RESET\n" 'already installed'
+    fi
+}
+
+do_install_aur_asdeps() {
+    do_install_aur "$1"
+    pacman -D --asdeps "$1" &> /dev/null
+}
+
+do_write() {
+    mkdir -p -- "$(dirname "$1")"
+
+    prefix_yellow "write"
+    if [[ -e $1 ]]; then
+        printf "%s $COLOR_GREY%s$COLOR_RESET\n" "$1" "(already exists)"
+    else
+        printf "%s ← $COLOR_CYAN%s$COLOR_RESET\n" "$1" "$2"
+    fi
+
+    printf "%s\n" "$2" > "$1"
+}
+
+do_user() {
+    prefix_yellow "user"
+    if id -u "$1" &> /dev/null; then
+        printf "%s $COLOR_GREY%s$COLOR_RESET\n" "$1" "(already exists)"
+    else
+        printf "%s\n" "$1"
+        useradd -m -G wheel alex
+    fi
+}
+
+do_chsh() {
+    prefix_yellow "shell"
+    current_shell=$(getent passwd "$1" | cut -d: -f7)
+    if [[ $current_shell == "$2" ]]; then
+        printf "%s $COLOR_GREY%s$COLOR_RESET\n" "$(basename "$2")" "(already set)"
+    else
+        chsh -s "$2" "$1"
+    fi
+}
