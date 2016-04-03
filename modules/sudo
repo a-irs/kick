@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
 
-[[ $UID == 0 ]] || exit 1
-
+[[ $UID == 0 ]] || { printf "%s\n" "run as root"; exit 1; }
 . configuration
 
 do_install sudo

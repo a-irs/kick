@@ -1,8 +1,9 @@
 #!/usr/bin/env bash
 
-user=alex
+set -e
 
 export LC_ALL=C
+builduser=alex
 
 COLOR_RED=$(tput setaf 1)
 COLOR_GREY=$(tput setaf 8)
@@ -41,7 +42,7 @@ do_install_aur() {
 
     if ! pacman -Q "$1" &> /dev/null; then
         printf "\n"
-        sudo -u $user -s -- <<EOF
+        sudo -u $builduser -s -- <<EOF
             cd "$(mktemp -d)"
             curl "https://aur.archlinux.org/cgit/aur.git/snapshot/$1.tar.gz" | tar xz
             cd "$1"
@@ -98,15 +99,28 @@ do_set_option() {
     file=$1
     key=$2
     value=$3
+    if [[ -n "$value" ]]; then
+        new="$key=$value"
+    else
+        new=$key
+    fi
 
     prefix_yellow "set"
     printf "%s=%s → %s\n" "$key" "$value" "$file"
 
-    current=$(grep -m 1 -n "$key" "$file")
+    current=$(grep -m 1 -n "$key" "$file" || true)
     if [[ -n "$current" ]]; then
         current_line=$(printf "%s" "$current" | cut -d: -f 1 | sed -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//')
-        sed -i "${current_line}s|.*|${key}=${value}|" "$file"
+        sed -i "${current_line}s|.*|$new|" "$file"
     else
-        printf "%s\n" "$key=$value" >> "$file"
+        printf "%s\n" "$new" >> "$file"
     fi
+}
+
+do_set_option_ini() {
+    ./crudini.py --format=sh --set "$1" "$2" "$3" "$4"
+}
+
+do_enable_service() {
+    systemctl start "$1" && systemctl enable "$1"
 }
