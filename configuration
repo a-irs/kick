@@ -15,15 +15,15 @@ COLOR_RESET=$(tput sgr0;tput init)
 prefix_yellow() {
     printf "$COLOR_YELLOW:: %s:$COLOR_RESET " "$@"
 }
-
 prefix_red() {
     printf "$COLOR_RED:: %s:$COLOR_RESET " "$@"
 }
-
 prefix_blue() {
     printf "$COLOR_BLUE:: %s:$COLOR_RESET " "$@"
 }
-
+prefix_cyan() {
+    printf "$COLOR_CYAN:: %s:$COLOR_RESET " "$@"
+}
 
 do_install() {
     prefix_blue "install"
@@ -118,9 +118,19 @@ do_set_option() {
 }
 
 do_set_option_ini() {
+    prefix_yellow "set"
+    printf "[%s] %s=%s → %s\n" "$2" "$3" "$4" "$1"
     ./crudini.py --format=sh --set "$1" "$2" "$3" "$4"
 }
 
 do_enable_service() {
+    prefix_blue "enable, start"
+    printf "%s\n" "$1.service"
     systemctl start "$1" && systemctl enable "$1"
+}
+
+do_exec() {
+    prefix_cyan "execute"
+    printf "%s\n" "$*"
+    "$@" > /dev/null
 }

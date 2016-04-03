@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+
+[[ $UID == 0 ]] || { printf "%s\n" "run as root"; exit 1; }
+. configuration
+
+do_install alsa-utils
+do_install pulseaudio-alsa
+do_install pavucontrol
+do_install pamixer
+
+do_exec amixer sset Master unmute
+
+do_set_option /etc/pulse/daemon.conf flat-volumes no
