@@ -11,7 +11,7 @@ source config
 
 printf "\n"
 for m in "$@"; do
-    printf "$BOLD$COLOR_GREEN> running %s$RESET\n\n" "$m"
+    printf "$BOLD> running %s$RESET\n\n" "$m"
     source "$m"
     printf "\n"
 done

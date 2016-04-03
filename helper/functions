@@ -1,25 +1,27 @@
 #!/usr/bin/env bash
 
-COLOR_RED=$(tput setaf 1)
-COLOR_GREEN=$(tput setaf 2)
-COLOR_GREY=$(tput setaf 8)
-COLOR_YELLOW=$(tput setaf 3)
-COLOR_BLUE=$(tput setaf 4)
-COLOR_CYAN=$(tput setaf 6)
+RED=$(tput setaf 1)
+GREEN=$(tput setaf 2)
+YELLOW=$(tput setaf 3)
+BLUE=$(tput setaf 4)
+MAGENTA=$(tput setaf 5)
+CYAN=$(tput setaf 6)
+GREY=$(tput setaf 8)
+
 RESET=$(tput sgr0;tput init)
 BOLD=$(tput bold)
 
 prefix_yellow() {
-    printf "  $COLOR_YELLOW:: %s:$RESET " "$@"
+    printf "  $YELLOW:: %s:$RESET " "$@"
 }
 prefix_red() {
-    printf "  $COLOR_RED:: %s:$RESET " "$@"
+    printf "  $RED:: %s:$RESET " "$@"
 }
 prefix_blue() {
-    printf "  $COLOR_BLUE:: %s:$RESET " "$@"
+    printf "  $BLUE:: %s:$RESET " "$@"
 }
 prefix_cyan() {
-    printf "  $COLOR_CYAN:: %s:$RESET " "$@"
+    printf "  $CYAN:: %s:$RESET " "$@"
 }
 
 do_install() {
@@ -29,7 +31,7 @@ do_install() {
     if ! pacman -Q "$1" &> /dev/null; then
         pacman -S --needed --noconfirm -- "$1"
     else
-        printf " $COLOR_GREY(%s)$RESET\n" 'already installed'
+        printf " $GREY(%s)$RESET\n" 'already installed'
     fi
 }
 
@@ -39,7 +41,7 @@ do_install_aur() {
 
     if ! pacman -Q "$1" &> /dev/null; then
         if ! id -u "$user" &> /dev/null; then
-            printf " $COLOR_RED%s$RESET\n" "(ERROR: user '$user' needed to make package does not exist)"
+            printf " $RED%s$RESET\n" "(ERROR: user '$user' needed to make package does not exist)"
             return
         fi
         printf "\n"
@@ -49,8 +51,9 @@ do_install_aur() {
         sudo -u "$user" -s -- <<EOF
             cd "$temp" && curl -s "https://aur.archlinux.org/cgit/aur.git/snapshot/$1.tar.gz" | tar xz && cd "$1" && makepkg -sir --noconfirm --needed
 EOF
+        rm -rf "$temp"
     else
-        printf " $COLOR_GREY(%s)$RESET\n" 'already installed'
+        printf " $GREY(%s)$RESET\n" 'already installed'
     fi
 }
 
@@ -64,9 +67,9 @@ do_write() {
 
     prefix_yellow "write"
     if [[ -e $1 ]]; then
-        printf "%s $COLOR_GREY%s$RESET\n" "$1" "(already exists)"
+        printf "%s $GREY%s$RESET\n" "$1" "(already exists)"
     else
-        printf "%s ← $COLOR_CYAN%s$RESET\n" "$1" "$2"
+        printf "%s ← $CYAN%s$RESET\n" "$1" "$2"
     fi
 
     printf "%s\n" "$2" > "$1"
@@ -75,7 +78,7 @@ do_write() {
 do_user() {
     prefix_yellow "user"
     if id -u "$1" &> /dev/null; then
-        printf "%s $COLOR_GREY%s$RESET\n" "$1" "(already exists)"
+        printf "%s $GREY%s$RESET\n" "$1" "(already exists)"
     else
         printf "%s\n" "$1"
         useradd -m -G wheel "$1"
@@ -87,7 +90,7 @@ do_chsh() {
     prefix_yellow "shell"
     current_shell=$(getent passwd "$1" | cut -d: -f7)
     if [[ $current_shell == "$2" ]]; then
-        printf "%s $COLOR_GREY%s$RESET\n" "$(basename "$2")" "(already set)"
+        printf "%s $GREY%s$RESET\n" "$(basename "$2")" "(already set)"
     else
         printf "%s\n" "$(basename "$2")"
         chsh -s "$2" "$1"
@@ -142,7 +145,7 @@ do_symlink() {
     prefix_yellow "symlink"
     printf "%s → %s" "$2" "$1"
     if [[ -e "$2" ]]; then
-        printf " $COLOR_GREY%s$RESET\n" "(already exists)"
+        printf " $GREY%s$RESET\n" "(already exists)"
     else
         printf "\n"
         ln -s "$1" "$2"
