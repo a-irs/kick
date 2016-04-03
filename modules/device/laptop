@@ -27,11 +27,13 @@ do_set_option /etc/ssh/sshd_config PermitRootLogin prohibit-password ' '
 
 do_write /etc/udev/rules.d/70-wifi-powersave.rules 'ACTION=="add", SUBSYSTEM=="net", KERNEL=="wlan*" RUN+="/usr/bin/iw dev %k set power_save on"'
 
-do_set_option_ini /etc/systemd/logind.conf Login HandlePowerKey ignore
-do_set_option_ini /etc/systemd/logind.conf Login HandleSuspendKey ignore
-do_set_option_ini /etc/systemd/logind.conf Login HandleHibernateKey ignore
-do_set_option_ini /etc/systemd/logind.conf Login HandleLidSwitch ignore
-do_set_option_ini /etc/systemd/logind.conf Login HandleLidSwitchDocked ignore
+do_write /etc/systemd/logind.conf.d/ignore-keys.conf \
+'[Login]
+HandlePowerKey=ignore
+HandleSuspendKey=ignore
+HandleHibernateKey=ignore
+HandleLidSwitch=ignore
+HandleLidSwitchDocked=ignore'
 
 do_write /etc/X11/xorg.conf.d/20-intel.conf \
 'Section "Device"

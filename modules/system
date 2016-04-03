@@ -11,7 +11,11 @@ net.ipv6.conf.wlan0.use_tempaddr = 2
 net.ipv6.conf.eth0.use_tempaddr = 2'
 
 do_symlink /dev/null /etc/sysctl.d/50-coredump.conf
-do_set_option_ini /etc/systemd/logind.conf Journal SystemMaxUse 128M
+
+do_write /etc/systemd/journald.conf.d/size.conf \
+'[Journal]
+SystemMaxUse=128M'
+
 do_set_option /etc/fuse.conf user_allow_other
 
 do_symlink /dev/null /etc/udev/rules.d/80-net-setup-link.rules
