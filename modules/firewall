@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+
+[[ $UID == 0 ]] || { printf "%s\n" "run as root"; exit 1; }
+. configuration
+
+do_install ufw
+
+do_exec ufw --force reset
+do_exec ufw default deny  incoming
+do_exec ufw default allow outgoing
+do_exec ufw logging off
+
+do_exec ufw allow 22/tcp    # ssh
+do_exec ufw allow 8080/tcp  # kodi
+do_exec ufw allow 17500/tcp # dropbox
+
+do_exec ufw --force enable
