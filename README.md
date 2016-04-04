@@ -12,10 +12,8 @@ These are bash scripts to get a freshly installed Arch Linux up and running.
 - hostname
 - mkinitcpio
 - fstab?
-- grub?
+- grub? (+ intel-ucode)
 - virtualbox <https://github.com/jantman/puppet-archlinux-workstation/blob/master/manifests/userapps/virtualbox.pp>
 - docker <https://github.com/jantman/puppet-archlinux-workstation/blob/master/manifests/docker.pp>
 - auto setup ssh keys (authorized_keys)
 - replace crudini.py
-- install packages
-- setup dotfiles

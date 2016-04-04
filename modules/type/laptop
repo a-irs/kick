@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 do_install networkmanager
+do_install dnsmasq
 do_install network-manager-applet
 do_install gnome-keyring
 do_write /etc/NetworkManager/dnsmasq.d/cache.conf 'cache-size=1000'
@@ -39,6 +40,7 @@ do_write /etc/X11/xorg.conf.d/20-intel.conf \
    Option      "AccelMethod"  "uxa"
 EndSection'
 
+do_install xf86-input-synaptics
 do_write /etc/X11/xorg.conf.d/50-synaptics.conf \
 'Section "InputClass"
     Identifier "touchpad"

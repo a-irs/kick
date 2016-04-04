@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 
+do_install_aur        base-devel
 do_install_aur_asdeps package-query
 do_install_aur        yaourt
 
