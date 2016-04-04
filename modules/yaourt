@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 
-do_install_aur        base-devel
+do_install base-devel
 do_install_aur_asdeps package-query
-do_install_aur        yaourt
+do_install_aur yaourt
 
 do_set_option /etc/yaourtrc AURSHOWDIFF 1
 do_set_option /etc/yaourtrc AURUPGRADE 1

@@ -5,6 +5,6 @@ do_install pulseaudio-alsa
 do_install pavucontrol
 do_install pamixer
 
-do_exec amixer sset Master unmute
+do_exec amixer -q sset Master unmute
 
 do_set_option /etc/pulse/daemon.conf flat-volumes no
