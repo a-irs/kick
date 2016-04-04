@@ -4,7 +4,7 @@
 
 for p in \
     adobe-source-serif-pro-fonts adobe-source-sans-pro-fonts adobe-source-code-pro-fonts \
-    ttf-dejavu ttf-symbola ttf-droid ttf-ubuntu-family otf-fira-mono otf-fira-sans
+    ttf-dejavu ttf-symbola ttf-droid ttf-ubuntu-font-family otf-fira-mono otf-fira-sans
 do
     do_install "$p"
 done
