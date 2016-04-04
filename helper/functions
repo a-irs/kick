@@ -40,6 +40,11 @@ do_install_aur() {
     printf "%s" "$1"
 
     if ! pacman -Q "$1" &> /dev/null; then
+        if which yaourt &> /dev/null; then
+            sudo -u "$user" -- yaourt -S --needed --noconfirm "$1"
+            return
+        fi
+
         if ! id -u "$user" &> /dev/null; then
             printf " $RED%s$RESET\n" "(ERROR: user '$user' needed to make package does not exist)"
             return

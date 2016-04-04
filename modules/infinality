@@ -1,5 +1,0 @@
-#!/usr/bin/env bash
-
-# TODO incomplete
-
-do_set_option /etc/profile.d/infinality-settings.sh USE_STYLE 5

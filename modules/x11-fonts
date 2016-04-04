@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+
+# TODO: modified /etc/fonts directory
+
+for p in \
+    adobe-source-serif-pro-fonts adobe-source-sans-pro-fonts adobe-source-code-pro-fonts \
+    ttf-dejavu ttf-symbola ttf-droid ttf-ubuntu-family otf-fira-mono otf-fira-sans
+do
+    do_install "$p"
+done
+do_install_aur ttf-roboto
+
+# infinality
+do_install_aur fontconfig-infinality
+do_install_aur freetype2-infinality
+do_set_option /etc/profile.d/infinality-settings.sh USE_STYLE 5

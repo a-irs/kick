@@ -5,15 +5,21 @@ for p in \
     python python2 htop lsof nano tree psmisc procps-ng util-linux coreutils \
     iotop zip unzip zsh zsh-completions rsync mlocate ncdu pciutils \
     pv sshfs strace unrar progress findutils tmux cryptsetup file \
-    grep wget curl aria2 git the_silver_searcher
+    grep wget curl aria2 git tig the_silver_searcher gnu-netcat which usbutils gawk \
+    tar ack sed bzip2 gzip diffutils patch pkgfile wipe less ranger ps_mem bash \
+    source-highlight reflector highlight
 do
     do_install "$p"
 done
 
+# TODO filesystem stuff
+
 # network tools
 for p in \
-    wol traceroute inetutils iftop iptraf-ng mtr iperf ethtool \
-    iputils iw whois bind-tools nethogs net-tools
+    wireless_tools wol traceroute inetutils iftop iptraf-ng mtr iperf ethtool \
+    iputils iw whois bind-tools nethogs net-tools bmon aircrack-ng
 do
     do_install "$p"
 done
+
+# TODO AUR: utimer wcalc icdiff-git
