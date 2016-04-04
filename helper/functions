@@ -24,7 +24,25 @@ prefix_cyan() {
     printf "  $CYAN:: %s:$RESET " "$@"
 }
 
-do_install() {
+kick_install() {
+    for p in "$@"; do
+        _do_install "$p"
+    done
+}
+
+kick_install_aur() {
+    for p in "$@"; do
+        _do_install_aur "$p"
+    done
+}
+
+kick_install_aur_asdeps() {
+    for p in "$@"; do
+        _do_install_aur_asdeps "$p"
+    done
+}
+
+_do_install() {
     prefix_blue "install"
     printf "%s" "$1"
 
@@ -35,19 +53,7 @@ do_install() {
     fi
 }
 
-do_install_list() {
-    for p in "$@"; do
-        do_install "$p"
-    done
-}
-
-do_install_list_aur() {
-    for p in "$@"; do
-        do_install_aur "$p"
-    done
-}
-
-do_install_aur() {
+_do_install_aur() {
     prefix_blue "install (AUR)"
     printf "%s" "$1"
 
@@ -74,12 +80,12 @@ EOF
     fi
 }
 
-do_install_aur_asdeps() {
-    do_install_aur "$1"
+_do_install_aur_asdeps() {
+    _do_install_aur "$1"
     pacman -D --asdeps "$1" &> /dev/null
 }
 
-do_write() {
+kick_write() {
     mkdir -p -- "$(dirname "$1")"
 
     prefix_yellow "write"
@@ -92,7 +98,7 @@ do_write() {
     printf "%s\n" "$2" > "$1"
 }
 
-do_user() {
+kick_useradd() {
     prefix_yellow "user"
     if id -u "$1" &> /dev/null; then
         printf "%s $GREY%s$RESET\n" "$1" "(already exists)"
@@ -103,7 +109,7 @@ do_user() {
     fi
 }
 
-do_chsh() {
+kick_chsh() {
     prefix_yellow "shell"
     current_shell=$(getent passwd "$1" | cut -d: -f7)
     if [[ $current_shell == "$2" ]]; then
@@ -116,7 +122,7 @@ do_chsh() {
 
 # changes option '#AURSHOWDIFF=0'
 #             to 'AURSHOWDIFF=1'
-do_set_option() {
+kick_set() {
     file=$1
     key=$2
     value=$3
@@ -140,25 +146,25 @@ do_set_option() {
     fi
 }
 
-do_set_option_ini() {
+kick_set_ini() {
     prefix_yellow "set"
     printf "[%s] %s=%s → %s\n" "$2" "$3" "$4" "$1"
     ./helper/crudini.py --format=sh --set "$1" "$2" "$3" "$4"
 }
 
-do_enable_service() {
+kick_enable() {
     prefix_blue "enable, start"
     printf "%s\n" "$1.service"
     systemctl start "$1" && systemctl enable "$1"
 }
 
-do_exec() {
+kick_exec() {
     prefix_cyan "execute"
     printf "%s\n" "$*"
     "$@"
 }
 
-do_symlink() {
+kick_symlink() {
     prefix_yellow "symlink"
     printf "%s → %s" "$2" "$1"
     if [[ -e "$2" ]]; then
@@ -169,7 +175,7 @@ do_symlink() {
     fi
 }
 
-do_clone() {
+kick_clone() {
     prefix_blue "clone repo"
     printf "%s → %s" "$1" "$2"
     if ! sudo -u "$user" git clone --recursive "$1" "$2" 2> /dev/null; then

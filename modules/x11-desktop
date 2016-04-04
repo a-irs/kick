@@ -2,14 +2,14 @@
 
 # usable desktop environment
 
-do_install_list     termite vicious redshift lxsession compton chromium
-do_install_list_aur awesome-git lain-git kupfer-adds-git \
-                    faba-icon-theme-git gtk-theme-arc-git breeze-snow-cursor-theme
+kick_install     termite vicious redshift lxsession compton chromium
+kick_install_aur awesome-git lain-git kupfer-adds-git \
+                 faba-icon-theme-git gtk-theme-arc-git breeze-snow-cursor-theme
 
 # other usual tools
 
-do_install_list     scrot parcellite i3lock engrampa nitrogen p7zip gpicview \
-                    zathura zathura-pdf-mupdf ncmpcpp trash-cli gparted \
-                    gvfs gvfs-smb gvfs-mtp ffmpegthumbnailer mpv xclip \
-                    xdg-utils perl-file-mimeinfo wmctrl youtube-dl pcmanfm
-do_install_list_aur dropbox-cli colorgrab sublime-text-dev
+kick_install     scrot parcellite i3lock engrampa nitrogen p7zip gpicview \
+                 zathura zathura-pdf-mupdf ncmpcpp trash-cli gparted \
+                 gvfs gvfs-smb gvfs-mtp ffmpegthumbnailer mpv xclip \
+                 xdg-utils perl-file-mimeinfo wmctrl youtube-dl pcmanfm
+kick_install_aur dropbox-cli colorgrab sublime-text-dev

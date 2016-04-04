@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 
-do_set_option /etc/makepkg.conf 'COMPRESSXZ' '(xz -T 0 -c -z -)'
-do_set_option /etc/makepkg.conf 'PKGEXT' "\'.pkg.tar\'"
+kick_set /etc/makepkg.conf 'COMPRESSXZ' '(xz -T 0 -c -z -)'
+kick_set /etc/makepkg.conf 'PKGEXT' "\'.pkg.tar\'"
 
-do_set_option /etc/pacman.conf 'Color'
-do_set_option /etc/pacman.conf 'TotalDownload'
-do_set_option /etc/pacman.conf 'VerbosePkgLists'
+kick_set /etc/pacman.conf 'Color'
+kick_set /etc/pacman.conf 'TotalDownload'
+kick_set /etc/pacman.conf 'VerbosePkgLists'

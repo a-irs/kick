@@ -1,18 +1,18 @@
 #!/usr/bin/env bash
 
-do_write /etc/sysctl.d/disable-watchdog.conf 'kernel.nmi_watchdog = 0'
-do_write /etc/sysctl.d/ipv6-privacy.conf \
+kick_write /etc/sysctl.d/disable-watchdog.conf 'kernel.nmi_watchdog = 0'
+kick_write /etc/sysctl.d/ipv6-privacy.conf \
 'net.ipv6.conf.all.use_tempaddr = 2
 net.ipv6.conf.default.use_tempaddr = 2
 net.ipv6.conf.wlan0.use_tempaddr = 2
 net.ipv6.conf.eth0.use_tempaddr = 2'
 
-do_symlink /dev/null /etc/sysctl.d/50-coredump.conf
+kick_symlink /dev/null /etc/sysctl.d/50-coredump.conf
 
-do_write /etc/systemd/journald.conf.d/size.conf \
+kick_write /etc/systemd/journald.conf.d/size.conf \
 '[Journal]
 SystemMaxUse=128M'
 
-do_set_option /etc/fuse.conf user_allow_other
+kick_set /etc/fuse.conf user_allow_other
 
-do_symlink /dev/null /etc/udev/rules.d/80-net-setup-link.rules
+kick_symlink /dev/null /etc/udev/rules.d/80-net-setup-link.rules

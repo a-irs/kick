@@ -1,31 +1,31 @@
 #!/usr/bin/env bash
 
-do_install networkmanager
-do_install dnsmasq
-do_install network-manager-applet
-do_install gnome-keyring
-do_write /etc/NetworkManager/dnsmasq.d/cache.conf 'cache-size=1000'
-do_set_option_ini /etc/NetworkManager/NetworkManager.conf 'main' 'dns' 'dnsmasq'
-do_set_option_ini /etc/NetworkManager/NetworkManager.conf 'connection' 'ipv6.ip6-privacy' '2'
-do_enable_service NetworkManager
+kick_install networkmanager
+kick_install dnsmasq
+kick_install network-manager-applet
+kick_install gnome-keyring
+kick_write /etc/NetworkManager/dnsmasq.d/cache.conf 'cache-size=1000'
+kick_set_ini /etc/NetworkManager/NetworkManager.conf 'main' 'dns' 'dnsmasq'
+kick_set_ini /etc/NetworkManager/NetworkManager.conf 'connection' 'ipv6.ip6-privacy' '2'
+kick_enable NetworkManager.service
 
-do_write /etc/modprobe.d/wlan-led.conf 'options iwlwifi led_mode=3'
-do_write /etc/modprobe.d/i915.conf 'options i915 enable_rc6=1 enable_fbc=1 modeset=1'
-do_write /etc/sysctl.d/laptop_mode.conf 'vm.laptop_mode = 5'
-do_write /etc/sysctl.d/writeback_time.conf 'vm.dirty_writeback_centisecs = 1500'
+kick_write /etc/modprobe.d/wlan-led.conf 'options iwlwifi led_mode=3'
+kick_write /etc/modprobe.d/i915.conf 'options i915 enable_rc6=1 enable_fbc=1 modeset=1'
+kick_write /etc/sysctl.d/laptop_mode.conf 'vm.laptop_mode = 5'
+kick_write /etc/sysctl.d/writeback_time.conf 'vm.dirty_writeback_centisecs = 1500'
 
-do_write /etc/profile.d/shell-timeout.sh \
+kick_write /etc/profile.d/shell-timeout.sh \
 'TMOUT="$(( 120 ))";
 [ -z "$DISPLAY" ] && export TMOUT;
 case $( /usr/bin/tty ) in
     /dev/tty[0-9]*) export TMOUT;;
 esac'
 
-do_set_option /etc/ssh/sshd_config PermitRootLogin prohibit-password ' '
+kick_set /etc/ssh/sshd_config PermitRootLogin prohibit-password ' '
 
-do_write /etc/udev/rules.d/70-wifi-powersave.rules 'ACTION=="add", SUBSYSTEM=="net", KERNEL=="wlan*" RUN+="/usr/bin/iw dev %k set power_save on"'
+kick_write /etc/udev/rules.d/70-wifi-powersave.rules 'ACTION=="add", SUBSYSTEM=="net", KERNEL=="wlan*" RUN+="/usr/bin/iw dev %k set power_save on"'
 
-do_write /etc/systemd/logind.conf.d/ignore-keys.conf \
+kick_write /etc/systemd/logind.conf.d/ignore-keys.conf \
 '[Login]
 HandlePowerKey=ignore
 HandleSuspendKey=ignore
@@ -33,15 +33,15 @@ HandleHibernateKey=ignore
 HandleLidSwitch=ignore
 HandleLidSwitchDocked=ignore'
 
-do_write /etc/X11/xorg.conf.d/20-intel.conf \
+kick_write /etc/X11/xorg.conf.d/20-intel.conf \
 'Section "Device"
    Identifier  "Intel Graphics"
    Driver      "intel"
    Option      "AccelMethod"  "uxa"
 EndSection'
 
-do_install xf86-input-synaptics
-do_write /etc/X11/xorg.conf.d/50-synaptics.conf \
+kick_install xf86-input-synaptics
+kick_write /etc/X11/xorg.conf.d/50-synaptics.conf \
 'Section "InputClass"
     Identifier "touchpad"
     Driver "synaptics"

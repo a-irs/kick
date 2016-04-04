@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 
-do_install openssh
+kick_install openssh
 
-do_set_option /etc/ssh/sshd_config X11Forwarding yes ' '
-do_set_option /etc/ssh/sshd_config PermitRootLogin yes ' '
+kick_set /etc/ssh/sshd_config X11Forwarding yes ' '
+kick_set /etc/ssh/sshd_config PermitRootLogin yes ' '
 
-do_enable_service sshd
+kick_enable sshd.service

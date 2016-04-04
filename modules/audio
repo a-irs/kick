@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
 
-do_install alsa-utils
-do_install pulseaudio-alsa
-do_install pavucontrol
-do_install pamixer
+kick_install alsa-utils
+kick_install pulseaudio-alsa
+kick_install pavucontrol
+kick_install pamixer
 
-do_exec amixer -q sset Master unmute
+kick_exec amixer -q sset Master unmute
 
-do_set_option /etc/pulse/daemon.conf flat-volumes no
+kick_set /etc/pulse/daemon.conf flat-volumes no

@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
 
-do_user "$user"
-do_chsh "$user" /bin/zsh
+kick_useradd "$user"
+kick_chsh    "$user" /bin/zsh

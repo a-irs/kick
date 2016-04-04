@@ -1,13 +1,13 @@
 #!/usr/bin/env bash
 
-do_install ufw
+kick_install ufw
 
-do_exec ufw default deny  incoming
-do_exec ufw default allow outgoing
-do_exec ufw logging off
+kick_exec ufw default deny  incoming
+kick_exec ufw default allow outgoing
+kick_exec ufw logging off
 
-do_exec ufw allow 22/tcp    # ssh
-do_exec ufw allow 8080/tcp  # kodi
-do_exec ufw allow 17500/tcp # dropbox
+kick_exec ufw allow 22/tcp    # ssh
+kick_exec ufw allow 8080/tcp  # kodi
+kick_exec ufw allow 17500/tcp # dropbox
 
-do_exec ufw enable
+kick_exec ufw enable

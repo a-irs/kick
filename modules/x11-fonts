@@ -2,12 +2,12 @@
 
 # TODO: modified /etc/fonts directory
 
-do_install_list adobe-source-serif-pro-fonts adobe-source-sans-pro-fonts \
-                adobe-source-code-pro-fonts ttf-dejavu ttf-symbola ttf-droid \
-                ttf-ubuntu-font-family otf-fira-mono otf-fira-sans
-do_install_aur  ttf-roboto
+kick_install     adobe-source-serif-pro-fonts adobe-source-sans-pro-fonts \
+                 adobe-source-code-pro-fonts ttf-dejavu ttf-symbola ttf-droid \
+                 ttf-ubuntu-font-family otf-fira-mono otf-fira-sans
+kick_install_aur ttf-roboto
 
 # infinality
 
-do_install_aur_list fontconfig-infinality freetype2-infinality
-do_set_option /etc/profile.d/infinality-settings.sh USE_STYLE 5
+kick_install_aur fontconfig-infinality freetype2-infinality
+kick_set /etc/profile.d/infinality-settings.sh USE_STYLE 5

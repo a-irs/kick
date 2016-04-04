@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
 
-do_install xorg-server
-do_install xorg-server-utils
-do_install xorg-xinit
+kick_install xorg-server
+kick_install xorg-server-utils
+kick_install xorg-xinit
 
 if lspci | grep -e VGA -e 3D | grep -q Intel; then
-    do_install xf86-video-intel
+    kick_install xf86-video-intel
 fi

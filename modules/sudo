@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
 
-do_install sudo
-do_write /etc/sudoers.d/disable-logging 'Defaults !syslog, !pam_session'
-do_write /etc/sudoers.d/wheel-nopasswd  '%wheel ALL=(ALL) NOPASSWD: ALL'
+kick_install sudo
+kick_write /etc/sudoers.d/disable-logging 'Defaults !syslog, !pam_session'
+kick_write /etc/sudoers.d/wheel-nopasswd  '%wheel ALL=(ALL) NOPASSWD: ALL'

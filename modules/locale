@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-do_write /etc/X11/xorg.conf.d/20-keyboard.conf \
+kick_write /etc/X11/xorg.conf.d/20-keyboard.conf \
 'Section "InputClass"
     Identifier "keyboard"
     MatchIsKeyboard "yes"
@@ -8,15 +8,15 @@ do_write /etc/X11/xorg.conf.d/20-keyboard.conf \
     Option "XbkVariant" "nodeadkeys"
 EndSection'
 
-do_symlink /usr/share/zoneinfo/Europe/Berlin /etc/localtime
+kick_symlink /usr/share/zoneinfo/Europe/Berlin /etc/localtime
 
-do_exec timedatectl set-ntp true
-hwclock --systohc --utc
+kick_exec timedatectl set-ntp true
+kick_exec hwclock --systohc --utc
 
-do_write /etc/vconsole.conf 'KEYMAP=de-latin1-nodeadkeys'
-do_write /etc/locale.conf 'LANG=de_DE.UTF-8'
-do_write /etc/locale.gen \
+kick_write /etc/vconsole.conf 'KEYMAP=de-latin1-nodeadkeys'
+kick_write /etc/locale.conf 'LANG=de_DE.UTF-8'
+kick_write /etc/locale.gen \
 'de_DE.UTF-8 UTF-8
 en_IE.UTF-8 UTF-8
 en_US.UTF-8 UTF-8'
-do_exec locale-gen
+kick_exec locale-gen

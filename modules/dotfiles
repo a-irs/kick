@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
-do_install git
+kick_install git
 
 target_dir=$(eval echo "~$user/.dotfiles")
-do_clone "https://github.com/a-irs/dotfiles" "$target_dir"
-do_exec sudo -u "$user" "$target_dir/.setup.sh"
+kick_clone "https://github.com/a-irs/dotfiles" "$target_dir"
+kick_exec sudo -u "$user" "$target_dir/.setup.sh"

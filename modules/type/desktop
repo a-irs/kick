@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
 
-do_install dhcpcd
-do_enable_service dhcpcd
+kick_install dhcpcd
+kick_enable dhcpcd.service
