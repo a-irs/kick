@@ -35,6 +35,18 @@ do_install() {
     fi
 }
 
+do_install_list() {
+    for p in "$@"; do
+        do_install "$p"
+    done
+}
+
+do_install_list_aur() {
+    for p in "$@"; do
+        do_install_aur "$p"
+    done
+}
+
 do_install_aur() {
     prefix_blue "install (AUR)"
     printf "%s" "$1"

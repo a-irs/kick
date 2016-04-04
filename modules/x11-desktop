@@ -1,28 +1,15 @@
 #!/usr/bin/env bash
 
 # usable desktop environment
-for p in \
-    termite vicious redshift lxsession compton chromium
-do
-    do_install "$p"
-done
-for p in \
-    awesome-git lain-git kupfer-adds-git \
-    faba-icon-theme-git gtk-theme-arc-git breeze-snow-cursor-theme
-do
-    do_install_aur "$p"
-done
+
+do_install_list     termite vicious redshift lxsession compton chromium
+do_install_list_aur awesome-git lain-git kupfer-adds-git \
+                    faba-icon-theme-git gtk-theme-arc-git breeze-snow-cursor-theme
 
 # other usual tools
-for p in \
-    scrot parcellite i3lock engrampa nitrogen p7zip zathura zathura-pdf-mupdf \
-    ncmpcpp trash-cli gparted gvfs gvfs-smb gvfs-mtp ffmpegthumbnailer \
-    xclip mpv xdg-utils perl-file-mimeinfo wmctrl youtube-dl pcmanfm gpicview
-do
-    do_install "$p"
-done
-for p in \
-    dropbox-cli colorgrab sublime-text-dev
-do
-    do_install_aur "$p"
-done
+
+do_install_list     scrot parcellite i3lock engrampa nitrogen p7zip gpicview \
+                    zathura zathura-pdf-mupdf ncmpcpp trash-cli gparted \
+                    gvfs gvfs-smb gvfs-mtp ffmpegthumbnailer mpv xclip \
+                    xdg-utils perl-file-mimeinfo wmctrl youtube-dl pcmanfm
+do_install_list_aur dropbox-cli colorgrab sublime-text-dev
