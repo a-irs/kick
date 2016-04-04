@@ -1,12 +1,19 @@
 #!/usr/bin/env bash
 
+# basic system cli tools
 for p in \
-    htop lsof inotify-tools file nano tcpdump traceroute tree wol \
-    the_silver_searcher psmisc iftop inetutils iptraf-ng mtr procps-ng arp-scan \
-    iotop ranger ps_mem pydf zip unzip zsh zsh-completions iperf pdfgrep ethtool \
-    rsync mlocate nethogs ngrep pv trash-cli sshfs strace unrar progress iputils \
-    findutils tmux cryptsetup pciutils whois bind-tools wget curl aria2 grep \
-    iproute2 iw ncdu
+    python python2 htop lsof nano tree the_silver_searcher psmisc procps-ng util-linux coreutils \
+    iotop zip unzip zsh zsh-completions rsync mlocate ncdu pciutils \
+    pv sshfs strace unrar progress findutils tmux cryptsetup file \
+    grep pdfgrep wget curl aria2 git
+do
+    do_install "$p"
+done
+
+# network tools
+for p in \
+    wol traceroute inetutils iftop iptraf-ng mtr iperf ethtool \
+    iputils iw whois bind-tools nethogs
 do
     do_install "$p"
 done
