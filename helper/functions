@@ -138,7 +138,7 @@ do_enable_service() {
 do_exec() {
     prefix_cyan "execute"
     printf "%s\n" "$*"
-    "$@" > /dev/null
+    "$@"
 }
 
 do_symlink() {
@@ -149,5 +149,13 @@ do_symlink() {
     else
         printf "\n"
         ln -s "$1" "$2"
+    fi
+}
+
+do_clone() {
+    prefix_blue "clone repo"
+    printf "%s → %s" "$1" "$2"
+    if ! sudo -u "$user" git clone --recursive "$1" "$2" 2> /dev/null; then
+        printf " $GREY%s$RESET\n" "(already exists)"
     fi
 }
