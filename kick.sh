@@ -11,7 +11,13 @@ source config
 
 printf "\n"
 for m in "$@"; do
-    printf "$BOLD> running %s$RESET\n\n" "$m"
-    source "$m"
-    printf "\n"
+    if [[ "$m" != "modules/"* ]]; then
+        printf "$BOLD$RED> '%s' not in modules-directory$RESET\n\n" "$m"
+    elif [[ ! -f "$m" ]]; then
+        printf "$BOLD$RED> '%s' not found$RESET\n\n" "$m"
+    else
+        printf "$BOLD> running %s$RESET\n\n" "$m"
+        source "$m"
+        printf "\n"
+    fi
 done
