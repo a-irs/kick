@@ -7,7 +7,12 @@ export LC_ALL=C
 source helper/functions
 source config
 
-[[ -z "$@" ]] && { echo "usage: $0 modules/<module1> modules/<module2> ..."; exit 1; }
+if [[ -z "$@" ]]; then
+    printf "%s\n\n" ":: usage: $0 modules/<module1> modules/<module2> ..."
+    printf "%s\n" ":: available modules:"
+    find modules -type f | sort
+    exit 1
+fi
 
 printf "\n"
 for m in "$@"; do
