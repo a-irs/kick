@@ -1,11 +1,13 @@
 #!/usr/bin/env bash
 
+
 # TODO: modified /etc/fonts directory
 
 kick_install     adobe-source-serif-pro-fonts adobe-source-sans-pro-fonts \
                  adobe-source-code-pro-fonts ttf-dejavu ttf-symbola ttf-droid \
                  ttf-ubuntu-font-family otf-fira-mono otf-fira-sans
 kick_install_aur ttf-roboto
+
 
 # infinality
 
