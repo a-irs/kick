@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
 
-kick_install     adobe-source-serif-pro-fonts adobe-source-sans-pro-fonts \
-                 adobe-source-code-pro-fonts ttf-dejavu ttf-droid
+kick_install     ttf-dejavu
 kick_install_aur ttf-roboto
 
 kick_rm /etc/fonts/conf.d/10-scale-bitmap-fonts.conf
