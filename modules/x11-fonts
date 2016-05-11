@@ -1,15 +1,8 @@
 #!/usr/bin/env bash
 
-
-# TODO: modified /etc/fonts directory
-
 kick_install     adobe-source-serif-pro-fonts adobe-source-sans-pro-fonts \
-                 adobe-source-code-pro-fonts ttf-dejavu ttf-symbola ttf-droid \
-                 ttf-ubuntu-font-family otf-fira-mono otf-fira-sans
+                 adobe-source-code-pro-fonts ttf-dejavu ttf-droid
 kick_install_aur ttf-roboto
 
-
-# infinality
-
-kick_install_aur fontconfig-infinality freetype2-infinality
-kick_set /etc/profile.d/infinality-settings.sh USE_STYLE 5
+kick_rm /etc/fonts/conf.d/10-scale-bitmap-fonts.conf
+kick_rm /etc/fonts/conf.d/90-synthetic.conf
