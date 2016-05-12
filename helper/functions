@@ -192,6 +192,11 @@ kick_replace() {
 
 kick_rm() {
     prefix_yellow "remove"
-    printf "%s\n" "$1"
-    rm -f "$1"
+    printf "%s" "$1"
+    if [[ -e "$1" ]]; then
+        rm -f "$1"
+        printf "\n"
+    else
+        printf " $GREY%s$RESET\n" "(does not exist)"
+    fi
 }

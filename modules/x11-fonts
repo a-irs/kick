@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
 
-kick_install     ttf-dejavu
+kick_install     ttf-dejavu noto-fonts-emoji
 kick_install_aur ttf-roboto
 
 kick_rm /etc/fonts/conf.d/10-scale-bitmap-fonts.conf
+kick_rm /etc/fonts/conf.d/70-no-bitmaps.conf
 kick_rm /etc/fonts/conf.d/90-synthetic.conf
