@@ -13,6 +13,10 @@ kick_write /etc/systemd/journald.conf.d/size.conf \
 '[Journal]
 SystemMaxUse=128M'
 
+kick_write /etc/systemd/coredump.conf.d/size.conf \
+'[Coredump]
+Storage=none'
+
 kick_set /etc/fuse.conf user_allow_other
 
 kick_symlink /dev/null /etc/udev/rules.d/80-net-setup-link.rules
