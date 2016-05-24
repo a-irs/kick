@@ -1,10 +1,8 @@
 #!/usr/bin/env bash
 
-kick_install alsa-utils
-kick_install pulseaudio-alsa
-kick_install pavucontrol
-kick_install pamixer
+kick_install alsa-utils pulseaudio-alsa pavucontrol
 
 kick_exec amixer -q sset Master unmute
 
-kick_set /etc/pulse/daemon.conf flat-volumes no
+# already set to 'no' in arch linux, but just to be sure
+kick_set /etc/pulse/daemon.conf 'flat-volumes' 'no'

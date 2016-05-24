@@ -6,3 +6,4 @@ kick_set /etc/makepkg.conf 'PKGEXT' "\'.pkg.tar\'"
 kick_set /etc/pacman.conf 'Color'
 kick_set /etc/pacman.conf 'TotalDownload'
 kick_set /etc/pacman.conf 'VerbosePkgLists'
+kick_set /etc/pacman.conf 'NoExtract' 'etc/pacman.d/mirrorlist'
