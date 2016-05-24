@@ -34,13 +34,9 @@ $ unmount -R /mnt
 # TODO
 
 - <https://github.com/justin8/fabulous/blob/master/fabfile/arch.py>
-- infinality
 - laptop: resume.service
-- hostname
 - mkinitcpio
 - fstab?
 - grub? (+ intel-ucode)
-- virtualbox <https://github.com/jantman/puppet-archlinux-workstation/blob/master/manifests/userapps/virtualbox.pp>
-- docker <https://github.com/jantman/puppet-archlinux-workstation/blob/master/manifests/docker.pp>
 - auto setup ssh keys (authorized_keys)
 - replace crudini.py

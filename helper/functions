@@ -105,7 +105,7 @@ kick_useradd() {
         printf "%s $GREY%s$RESET\n" "$1" "(already exists)"
     else
         printf "%s\n" "$1"
-        useradd -m -G wheel "$1"
+        useradd -m --no-user-group -g users "$1"
         passwd "$1"
     fi
 }
