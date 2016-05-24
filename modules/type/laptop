@@ -1,13 +1,8 @@
 #!/usr/bin/env bash
 
-kick_install networkmanager
-kick_install dnsmasq
-kick_install network-manager-applet
-kick_install gnome-keyring
-kick_write /etc/NetworkManager/dnsmasq.d/cache.conf 'cache-size=1000'
-kick_set_ini /etc/NetworkManager/NetworkManager.conf 'main' 'dns' 'dnsmasq'
+kick_install networkmanager network-manager-applet gnome-keyring wireless_tools iw
 kick_set_ini /etc/NetworkManager/NetworkManager.conf 'connection' 'ipv6.ip6-privacy' '2'
-kick_enable NetworkManager.service
+kick_enable NetworkManager
 
 kick_write /etc/modprobe.d/wlan-led.conf 'options iwlwifi led_mode=3'
 kick_write /etc/modprobe.d/i915.conf 'options i915 enable_rc6=1 enable_fbc=1 modeset=1'

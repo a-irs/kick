@@ -5,4 +5,4 @@ kick_install openssh
 kick_set /etc/ssh/sshd_config X11Forwarding yes ' '
 kick_set /etc/ssh/sshd_config PermitRootLogin yes ' '
 
-kick_enable sshd.service
+kick_enable sshd

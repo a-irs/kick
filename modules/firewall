@@ -11,3 +11,4 @@ kick_exec ufw allow 8080/tcp  # kodi
 kick_exec ufw allow 17500/tcp # dropbox
 
 kick_exec ufw enable
+kick_enable ufw

@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 
+[[ -d /etc/X11/xorg.conf.d ]] && \
 kick_write /etc/X11/xorg.conf.d/20-keyboard.conf \
 'Section "InputClass"
     Identifier "keyboard"

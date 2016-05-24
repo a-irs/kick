@@ -179,7 +179,7 @@ kick_symlink() {
 kick_clone() {
     prefix_blue "clone repo"
     printf "%s → %s" "$1" "$2"
-    if ! sudo -u "$user" git clone --recursive "$1" "$2" 2> /dev/null; then
+    if ! su "$user" -c "git clone --recursive $1 $2" 2> /dev/null; then
         printf " $GREY%s$RESET\n" "(already exists)"
     fi
 }

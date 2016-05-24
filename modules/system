@@ -1,22 +1,24 @@
 #!/usr/bin/env bash
 
 kick_write /etc/sysctl.d/disable-watchdog.conf 'kernel.nmi_watchdog = 0'
+
 kick_write /etc/sysctl.d/ipv6-privacy.conf \
 'net.ipv6.conf.all.use_tempaddr = 2
 net.ipv6.conf.default.use_tempaddr = 2
 net.ipv6.conf.wlan0.use_tempaddr = 2
 net.ipv6.conf.eth0.use_tempaddr = 2'
 
-kick_symlink /dev/null /etc/sysctl.d/50-coredump.conf
-
 kick_write /etc/systemd/journald.conf.d/size.conf \
 '[Journal]
 SystemMaxUse=128M'
 
+# disable core dumps
 kick_write /etc/systemd/coredump.conf.d/size.conf \
 '[Coredump]
 Storage=none'
+kick_symlink /dev/null /etc/sysctl.d/50-coredump.conf
 
-kick_set /etc/fuse.conf user_allow_other
+[[ -f /etc/fuse.conf ]] && kick_set /etc/fuse.conf user_allow_other
 
+# disable verbose network device naming → return to eth0, wlan0
 kick_symlink /dev/null /etc/udev/rules.d/80-net-setup-link.rules
