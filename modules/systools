@@ -4,11 +4,10 @@
 
 kick_install python python2 htop lsof nano tree psmisc procps-ng util-linux coreutils \
              iotop zip unzip zsh zsh-completions rsync mlocate ncdu pciutils p7zip \
-             pv sshfs strace unrar progress findutils tmux cryptsetup file git tig \
+             pv sshfs strace unrar progress findutils tmux cryptsetup file git \
              grep wget curl aria2 the_silver_searcher gnu-netcat which usbutils gawk \
-             tar ack sed bzip2 gzip diffutils patch pkgfile wipe less ranger ps_mem bash \
-             reflector borg
-kick_install_aur utimer wcalc icdiff dtrx
+             tar ack sed bzip2 gzip diffutils patch pkgfile wipe less ranger bash
+kick_install_aur utimer wcalc icdiff
 
 
 # file system utilities

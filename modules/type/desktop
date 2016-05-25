@@ -2,3 +2,12 @@
 
 kick_install dhcpcd
 kick_enable dhcpcd
+
+[[ -d /etc/X11/xorg.conf.d ]] && \
+kick_write /etc/X11/xorg.conf.d/20-radeon.conf \
+'Section "Device"
+    Identifier "Radeon"
+    Driver "radeon"
+    Option "DRI" "3"
+    Option "TearFree" "on"
+EndSection'
