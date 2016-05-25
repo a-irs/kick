@@ -16,6 +16,7 @@ case $( /usr/bin/tty ) in
     /dev/tty[0-9]*) export TMOUT;;
 esac'
 
+[[ -f /etc/ssh/sshd_config ]] && \
 kick_set /etc/ssh/sshd_config PermitRootLogin prohibit-password ' '
 
 kick_write /etc/udev/rules.d/70-wifi-powersave.rules 'ACTION=="add", SUBSYSTEM=="net", KERNEL=="wlan*" RUN+="/usr/bin/iw dev %k set power_save on"'
@@ -28,21 +29,16 @@ HandleHibernateKey=ignore
 HandleLidSwitch=ignore
 HandleLidSwitchDocked=ignore'
 
-kick_write /etc/X11/xorg.conf.d/20-intel.conf \
-'Section "Device"
-   Identifier  "Intel Graphics"
-   Driver      "intel"
-   Option      "AccelMethod"  "uxa"
-EndSection'
-
-kick_install xf86-input-synaptics
-kick_write /etc/X11/xorg.conf.d/50-synaptics.conf \
-'Section "InputClass"
-    Identifier "touchpad"
-    Driver "synaptics"
-    MatchIsTouchpad "on"
+if [[ -d /etc/X11/xorg.conf.d ]]; then
+    kick_install xf86-input-synaptics
+    kick_write /etc/X11/xorg.conf.d/50-synaptics.conf \
+    'Section "InputClass"
+        Identifier "touchpad"
+        Driver "synaptics"
+        MatchIsTouchpad "on"
         Option "VertScrollDelta"   "-25"
         Option "MaxTapTime"        "0"
         Option "VertEdgeScroll"    "1"
         Option "HorizEdgeScroll"   "1"
-EndSection'
+    EndSection'
+fi

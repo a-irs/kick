@@ -6,7 +6,24 @@ kick_install xorg-xinit
 
 if lspci | grep -e VGA -e 3D | grep -q Intel; then
     kick_install xf86-video-intel
+
+    kick_write /etc/X11/xorg.conf.d/20-intel.conf \
+    'Section "Device"
+       Identifier "Intel Graphics"
+       Driver "intel"
+       Option "AccelMethod" "uxa"
+    EndSection'
+
 elif lspci | grep -e VGA -e 3D | grep -q AMD; then
     kick_install xf86-video-ati
     kick_install mesa-vdpau
+
+    kick_write /etc/X11/xorg.conf.d/20-radeon.conf \
+    'Section "Device"
+        Identifier "Radeon"
+        Driver "radeon"
+        Option "DRI" "3"
+        Option "TearFree" "on"
+    EndSection'
+
 fi
