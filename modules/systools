@@ -12,8 +12,7 @@ kick_install_aur utimer wcalc icdiff
 
 # file system utilities
 
-kick_install btrfs-progs dosfstools e2fsprogs f2fs-tools jfsutils ntfs-3g \
-             sysfsutils xfsprogs
+kick_install btrfs-progs dosfstools e2fsprogs f2fs-tools jfsutils ntfs-3g xfsprogs
 
 
 # network tools

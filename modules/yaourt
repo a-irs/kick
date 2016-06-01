@@ -4,7 +4,6 @@ kick_install            base-devel
 kick_install_aur_asdeps package-query
 kick_install_aur        yaourt
 
-kick_set /etc/yaourtrc AURSHOWDIFF 1
 kick_set /etc/yaourtrc AURUPGRADE 1
 kick_set /etc/yaourtrc AURUSEGIT 1
 kick_set /etc/yaourtrc EXPORT 2
