@@ -1,14 +1,28 @@
 #!/usr/bin/env bash
 
-kick_install ufw
+kick_install iptables
+kick_exec iptables-restore /etc/iptables/empty.rules
 
-kick_exec ufw default deny  incoming
-kick_exec ufw default allow outgoing
-kick_exec ufw logging off
+# https://wiki.archlinux.org/index.php/Simple_stateful_firewall
+kick_write /etc/iptables/iptables.rules \
+'*filter
+:INPUT DROP [0:0]
+:FORWARD DROP [0:0]
+:OUTPUT ACCEPT [0:0]
+:TCP - [0:0]
+:UDP - [0:0]
+-A INPUT -m conntrack --ctstate RELATED,ESTABLISHED -j ACCEPT
+-A INPUT -i lo -j ACCEPT
+-A INPUT -m conntrack --ctstate INVALID -j DROP
+-A INPUT -p icmp -m icmp --icmp-type 8 -m conntrack --ctstate NEW -j ACCEPT
+-A INPUT -p udp -m conntrack --ctstate NEW -j UDP
+-A INPUT -p tcp --tcp-flags FIN,SYN,RST,ACK SYN -m conntrack --ctstate NEW -j TCP
+-A INPUT -p udp -j REJECT --reject-with icmp-port-unreachable
+-A INPUT -p tcp -j REJECT --reject-with tcp-reset
+-A INPUT -j REJECT --reject-with icmp-proto-unreachable
+-A TCP -p tcp --dport 22 -j ACCEPT -m comment --comment "SSH"
+-A TCP -p tcp --dport 8080 -j ACCEPT -m comment --comment "Kodi"
+-A TCP -p tcp --dport 17500 -j ACCEPT -m comment --comment "Dropbox"
+COMMIT'
 
-kick_exec ufw allow 22/tcp    # ssh
-kick_exec ufw allow 8080/tcp  # kodi
-kick_exec ufw allow 17500/tcp # dropbox
-
-kick_exec ufw enable
-kick_enable ufw
+kick_enable iptables
