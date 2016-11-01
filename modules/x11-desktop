@@ -2,14 +2,13 @@
 
 # usable desktop environment
 
-kick_install     termite vicious redshift lxsession compton chromium
-kick_install_aur awesome-git lain-git kupfer-git \
-                 faba-icon-theme-git gtk-theme-arc-git breeze-snow-cursor-theme
+kick_install     termite redshift lxsession compton chromium arc-gtk-theme
+kick_install_aur awesome-git lain-git kupfer-git moka-icon-theme-git breeze-snow-cursor-theme
 
 # other usual tools
 
 kick_install     mate-utils parcellite i3lock engrampa nitrogen gpicview \
-                 zathura zathura-pdf-mupdf gpick gvfs gvfs-smb gvfs-mtp mpv xclip \
+                 zathura zathura-pdf-mupdf gpick gvfs-smb gvfs-mtp mpv xclip \
                  xdg-utils perl-file-mimeinfo wmctrl youtube-dl pcmanfm pdfgrep
 kick_install_aur dropbox-cli sublime-text-dev
 
@@ -21,3 +20,4 @@ kick_install_aur ttf-roboto
 kick_rm /etc/fonts/conf.d/10-scale-bitmap-fonts.conf
 kick_rm /etc/fonts/conf.d/70-no-bitmaps.conf
 kick_rm /etc/fonts/conf.d/90-synthetic.conf
+

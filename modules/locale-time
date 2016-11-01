@@ -9,7 +9,7 @@ kick_write /etc/X11/xorg.conf.d/20-keyboard.conf \
     Option "XbkVariant" "nodeadkeys"
 EndSection'
 
-kick_symlink /usr/share/zoneinfo/Europe/Berlin /etc/localtime
+kick_symlink /usr/share/zoneinfo/Europe/Vienna /etc/localtime
 
 kick_exec timedatectl set-ntp true
 kick_exec hwclock --systohc --utc

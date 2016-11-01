@@ -1,21 +1,18 @@
 #!/usr/bin/env bash
 
 # basic system cli tools
-
-kick_install python python2 htop lsof nano tree psmisc procps-ng util-linux coreutils \
+kick_install python python2 htop lsof tree psmisc procps-ng util-linux coreutils \
              iotop zip unzip zsh zsh-completions rsync mlocate ncdu pciutils p7zip \
              pv sshfs strace unrar progress findutils tmux cryptsetup file git \
              grep wget curl aria2 the_silver_searcher gnu-netcat which usbutils gawk \
-             tar ack sed bzip2 gzip diffutils patch pkgfile wipe less ranger bash
+             tar ack sed bzip2 gzip diffutils patch pkgfile wipe less ranger bash vim
 kick_install_aur utimer wcalc icdiff
 
 
 # file system utilities
-
 kick_install btrfs-progs dosfstools e2fsprogs f2fs-tools jfsutils ntfs-3g xfsprogs
 
 
 # network tools
-
 kick_install wol traceroute inetutils iftop iptraf-ng mtr iperf ethtool \
              iputils whois bind-tools nethogs net-tools bmon

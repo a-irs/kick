@@ -4,5 +4,3 @@ kick_install alsa-utils pulseaudio-alsa pavucontrol
 
 kick_exec amixer -q sset Master unmute
 
-# already set to 'no' in arch linux, but just to be sure
-kick_set /etc/pulse/daemon.conf 'flat-volumes' 'no'
