@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+kick_write /etc/systemd/system/getty@tty1.service.d/override.conf \
+"[Service]
+Type=simple
+ExecStart=
+ExecStart=-/usr/bin/agetty --autologin $user --noclear %I \$TERM"
