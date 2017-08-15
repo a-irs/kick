@@ -3,4 +3,3 @@
 kick_install alsa-utils pulseaudio-alsa pavucontrol
 
 kick_exec amixer -q sset Master unmute
-

@@ -2,6 +2,8 @@
 
 kick_write /etc/sysctl.d/disable-watchdog.conf 'kernel.nmi_watchdog = 0'
 
+kick_set /etc/default/grub 'GRUB_CMDLINE_LINUX_DEFAULT' "\"quiet ipv6.disable=1\""
+
 kick_write /etc/sysctl.d/ipv6-privacy.conf \
 'net.ipv6.conf.all.use_tempaddr = 2
 net.ipv6.conf.default.use_tempaddr = 2
