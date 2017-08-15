@@ -5,7 +5,9 @@ kick_install_aur_asdeps package-query
 kick_install_aur        yaourt
 
 kick_set /etc/yaourtrc AURUPGRADE 1
+kick_set /etc/yaourtrc AURCOMMENT 3
 kick_set /etc/yaourtrc AURUSEGIT 1
+kick_set /etc/yaourtrc AURSHOWDIFF 1
 kick_set /etc/yaourtrc EXPORT 2
 kick_set /etc/yaourtrc UP_NOCONFIRM 1
 kick_set /etc/yaourtrc BUILD_NOCONFIRM 1
